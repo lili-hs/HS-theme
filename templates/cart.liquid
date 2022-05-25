@@ -1,0 +1,23 @@
+<div class="container">
+{%- section 'cart-template' -%}
+	{% section 'recently-viewed' %}
+
+</div>
+
+<script type="text/javascript">
+  let lineItem;
+
+  $('a.quick-view').on('click', function(evt) {
+    lineItem = evt.target.dataset.line;
+  });
+
+
+  $(document).on('cart.requestComplete', function(evt, cart) {
+    let item = parseInt(lineItem) + 1;
+    setTimeout(() => {
+      CartJS.removeItem(item);
+      location.reload();
+    }, 1000);
+  });
+</script>
+

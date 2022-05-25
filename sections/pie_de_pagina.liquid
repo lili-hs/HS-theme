@@ -1,0 +1,371 @@
+<div class="pie-de-pagina">
+  <div class="grid-footer-1">
+    <ul class="only-on-mobile ul-faqs">
+      {% if linklists[section.settings.footer_column_6_linklist].links.size > 0 %}
+      <li class="head">Mi cuenta</li>
+      <li class="content" data-ref="#mi_cuenta"></li>
+      {% endif %}
+      {% if linklists[section.settings.footer_column_1_linklist].links.size > 0 %}
+      <li class="head">{{section.settings.footer_column_1_title | downcase | capitalize }}</li>
+      <li class="content" data-ref="#ayuda_footer"></li>
+      {% endif %}
+      {% if linklists[section.settings.footer_column_2_linklist].links.size > 0 %}
+      <li class="head">{{section.settings.footer_column_2_title | downcase | capitalize }}</li>
+      <li class="content" data-ref="#info_footer"></li>
+      {% endif %}
+      {% if linklists[section.settings.footer_column_3_linklist].links.size > 0 %}
+      <li class="head">{{section.settings.footer_column_3_title | downcase | capitalize }}</li>
+      <li class="content" data-ref="#acerca_footer"></li>
+      {% endif %}
+    </ul>
+    {% if linklists[section.settings.footer_column_6_linklist].links.size > 0 %}
+    <div id="mi_cuenta" style="display:none;">
+      <ul>
+        {% for link in linklists[section.settings.footer_column_6_linklist].links %}
+          <li><a href="{{ link.url }}">{{ link.title | split: '[' | first }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if linklists[section.settings.footer_column_1_linklist].links.size > 0 %}
+    <div id="ayuda_footer">
+      <h4 class="titulo_footer">{{section.settings.footer_column_1_title}}</h4>
+      <ul>
+        {% for link in linklists[section.settings.footer_column_1_linklist].links %}
+          <li><a href="{{ link.url }}">{{ link.title | split: '[' | first }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if linklists[section.settings.footer_column_2_linklist].links.size > 0 %}
+    <div id="info_footer">
+      <h4 class="titulo_footer">{{section.settings.footer_column_2_title}}</h4>
+      <ul>
+        {% for link in linklists[section.settings.footer_column_2_linklist].links %}
+          <li><a href="{{ link.url }}">{{ link.title | split: '[' | first }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if linklists[section.settings.footer_column_3_linklist].links.size > 0 %}
+    <div id="acerca_footer">
+      <h4 class="titulo_footer">{{section.settings.footer_column_3_title}}</h4>
+      <ul>
+        {% for link in linklists[section.settings.footer_column_3_linklist].links %}
+          <li><a href="{{ link.url }}">{{ link.title | split: '[' | first }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div id="app_footer_info_app">
+        <h4 class="titulo_footer">{{section.settings.footer_column_4_title}}</h4>
+        <div>
+        {% if section.settings.footer_column_4_appstore != blank %}
+        <a href="{{section.settings.footer_column_4_appstore}}">
+        {% endif %}
+        <img class="img_footer" src="{{ 'ios_img.png' | asset_url }}"/>
+        {% if section.settings.footer_column_4_appstore != blank %}
+        </a>
+        {% endif %}
+        </div>
+        <div>
+          {% if section.settings.footer_column_4_googleplay != blank %}
+          <a href="{{section.settings.footer_column_4_googleplay}}">
+          {% endif %}
+          <img class="img_footer" src="{{ 'android.png' | asset_url }}"/>
+          {% if section.settings.footer_column_4_googleplay != blank %}
+          </a>
+          {% endif %}
+        </div>
+    </div>
+    <div id="unete_footer" class="boletin_informativo">
+      <div class="wrap-newsletter">
+        <h4 class="titulo_footer">{{section.settings.footer_column_5_title}}</h4>
+        {% if section.settings.footer_column_5_newsletter %}
+        {% include 'newsletter-form' %}
+        {% endif %}
+        <div class="socials">
+          <div class="grid-footer-redes-sociales">
+            {% if section.settings.footer_column_5_instagram != blank %}
+            <div class="logo_instagram">
+              <a href="{{section.settings.footer_column_5_instagram}}" target="_blank">
+                <img class="logo_red_social" src="{{ 'logo_instagram.png' | asset_url }}"/>
+              </a>
+            </div>
+            {% endif %}
+            {% if section.settings.footer_column_5_facebook != blank %}
+            <div class="logo_facebook">
+              <a href="{{section.settings.footer_column_5_facebook}}" target="_blank">
+                <img class="logo_red_social" src="{{ 'logo_facebook.png' | asset_url }}"/>
+              </a>
+            </div>
+            {% endif %}
+            {% if section.settings.footer_column_5_tiktok != blank %}
+            <div class="logo_tiktok">
+              <a href="{{section.settings.footer_column_5_tiktok}}" target="_blank">
+                <img class="logo_red_social" src="{{ 'logo_tiktok.png' | asset_url }}"/>
+              </a>
+            </div>
+            {% endif %}
+            {% if section.settings.footer_column_5_youtube != blank %}
+            <div class="logo_youtube">
+              <a href="{{section.settings.footer_column_5_youtube}}" target="_blank">
+                <img class="logo_red_social" src="{{ 'logo_youtube.png' | asset_url }}"/>
+              </a>
+            </div>
+            {% endif %}
+            {% if section.settings.footer_column_5_spotify != blank %}
+            <div class="logo_spotify">
+              <a href="{{section.settings.footer_column_5_spotify}}" target="_blank">
+                <img class="logo_red_social" src="{{ 'logo_spotify.png' | asset_url }}"/>
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+    </div>                  
+  </div>
+  </div>
+  
+  
+   <div class="grid-footer-2">
+   
+    
+ 
+    
+    <div class="grid-footer-medios-pago">
+      {% if section.settings.footer_column_6_visa %}
+      <div class="logo_visa"><img class="logo_tarjeta" src="{{ 'VISA.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_mastercard %}
+      <div class="logo_mc"><img class="logo_tarjeta" src="{{ 'MASTER.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_amex %}
+      <div class="logo_ame"><img class="logo_tarjeta" src="{{ 'AMERICAN.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_paypal %}
+      <div class="logo_paypal"><img class="logo_tarjeta" src="{{ 'PAYPAL.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_oxxo %}
+      <div class="logo_oxxo"><img class="logo_tarjeta" src="{{ 'OXXO.svg' | asset_url }}"/></div>
+      {% endif %}
+    
+    </div>
+    <div class="grid-footer-medios-pago-2">
+      {% if section.settings.footer_column_6_spei %}
+      <div class="logo_spei"><img class="logo_tarjeta" src="{{ 'SPEI.svg' | asset_url }}"/></div>
+      {% endif %}
+   
+      {% if section.settings.footer_column_6_spei %}
+      <div class="logo_aplazo"><img class="logo_tarjeta" src="{{ 'APLAZO.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_spei %}
+      <div class="logo_kueski"><img class="logo_tarjeta" src="{{ 'KUESKI.svg' | asset_url }}"/></div>
+      {% endif %}
+       {% if section.settings.footer_column_6_spei %}
+      <div class="logo_zip"><img class="logo_tarjeta" src="{{ 'ZIP.svg' | asset_url }}"/></div>
+      {% endif %}
+      {% if section.settings.footer_column_6_spei %}
+      <div class="logo_bitpay"><img class="logo_tarjeta" src="{{ 'BITPAY.svg' | asset_url }}"/></div>
+      {% endif %}
+      
+    
+    </div>
+ 
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="grid-footer-3">
+    {% if section.settings.footer_column_6_copyright != blank %}
+    <div class="copyright">{{section.settings.footer_column_6_copyright}}</div>
+    {% endif %}
+    
+ 
+  </div>
+  
+  
+  
+  
+  
+  {% if section.settings.footer_column_6_discount != blank %}
+  <div class="pie_de_pagina footer-fixed">
+      <h4 class="mensaje_footer" style="background-color:{{section.settings.footer_column_6_color}}">{{section.settings.footer_column_6_discount}}</h4>
+  </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Pie de página",
+    "settings": [
+      {
+        "type": "header", 
+        "content": "-- Columna #1 --"
+      }, 
+      {
+        "type": "text",
+        "id": "footer_column_1_title",
+        "label": "Título"
+      },
+      {
+        "type": "link_list", 
+        "id": "footer_column_1_linklist", 
+        "label": "Menú"
+      },
+      {
+        "type": "header", 
+        "content": "-- Columna #2 --"
+      }, 
+      {
+        "type": "text",
+        "id": "footer_column_2_title",
+        "label": "Título"
+      },
+      {
+        "type": "link_list", 
+        "id": "footer_column_2_linklist", 
+        "label": "Menú"
+      },
+      {
+        "type": "header", 
+        "content": "-- Columna #3 --"
+      }, 
+      {
+        "type": "text",
+        "id": "footer_column_3_title",
+        "label": "Título"
+      },
+      {
+        "type": "link_list", 
+        "id": "footer_column_3_linklist", 
+        "label": "Menú"
+      },
+      {
+        "type": "header", 
+        "content": "-- Columna #4 --"
+      }, 
+      {
+        "type": "text",
+        "id": "footer_column_4_title",
+        "label": "Título"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_4_appstore", 
+        "label": "App Store link"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_4_googleplay", 
+        "label": "Google Play link"
+      },
+      {
+        "type": "header", 
+        "content": "-- Columna #5 --"
+      }, 
+      {
+        "type": "text",
+        "id": "footer_column_5_title",
+        "label": "Título"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_5_newsletter",
+        "label": "Newsletter?",
+        "default": true
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_5_instagram", 
+        "label": "Instagram"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_5_facebook", 
+        "label": "Facebook"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_5_tiktok", 
+        "label": "TikTok"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_5_youtube", 
+        "label": "Youtube"
+      },
+      {
+        "type": "url", 
+        "id": "footer_column_5_spotify", 
+        "label": "Spotify"
+      },
+      {
+        "type": "header", 
+        "content": "-- Columna #6 --"
+      },
+      {
+        "type": "text",
+        "id": "footer_column_6_copyright",
+        "label": "Copyright"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_visa",
+        "label": "Tarjeta visa",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_mastercard",
+        "label": "Tarjeta mastercard",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_amex",
+        "label": "Tarjeta amex",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_paypal",
+        "label": "Tarjeta paypal",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_oxxo",
+        "label": "Tarjeta oxxo",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_column_6_spei",
+        "label": "Tarjeta spei",
+        "default": false
+      },
+      {
+        "type": "link_list", 
+        "id": "footer_column_6_linklist", 
+        "label": "Menú Mi Cuenta"
+      },
+      {
+        "type": "textarea",
+        "id": "footer_column_6_discount",
+        "label": "Texto de promoción"
+      },
+		{
+      "type": "color",
+      "id": "footer_column_6_color",
+      "label": "Color barra inferior",
+      "default": "#FEB2D0"
+      }
+    ],
+    "blocks": [],
+    "presets": []
+  }
+{% endschema %}

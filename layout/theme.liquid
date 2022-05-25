@@ -1,0 +1,450 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}" {% if settings.rtl %}dir="rtl"{% endif %}>
+<head>
+{% include 'limespot' %}
+  {%- capture seo_title -%}
+    {{page_title}}
+    {%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}{%- endif -%}
+    {%- if current_page != 1 -%}&ndash; {{ 'general.meta.page' | t: page: current_page }}{%- endif -%}
+    {%- unless page_title contains shop.name -%}&ndash; {{ shop.name }}{%- endunless -%}
+  {%- endcapture -%}
+
+  {%- capture metaTags -%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="{{ canonical_url }}">
+  	<link rel="preconnect" href="//fonts.shopifycdn.com/" crossorigin>
+    <link rel="preconnect" href="//cdn.shopify.com">
+    <link rel="preconnect" href="//v.shopify.com">
+  	<link rel="preconnect" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//{{shop.domain}}">
+  	<link rel="dns-prefetch" href="//{{shop.permanent_domain}}">
+    <link rel="dns-prefetch" href="//cdn.shopify.com">
+    <link rel="dns-prefetch" href="//v.shopify.com">
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N2MGN33');</script>
+<!-- End Google Tag Manager -->
+  
+<!--TikTok Pixel -->  
+  <script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+  ttq.load('CA1TBOJC77UAH7NCDP1G');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!--End TikTok Pixel -->
+
+    <link rel="dns-prefetch" href="//fonts.shopifycdn.com/" crossorigin>
+
+  	<link rel="preload" as="style" href="{{ 'theme.scss.css' | asset_url }}">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107059787-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-107059787-1');
+    </script>
+
+    <script src="https://www.googleoptimize.com/optimize.js?id=OPT-WF5JL9S"></script>
+    {%- if settings.favicon != blank -%}<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">{%- endif -%}
+    {%- if settings.favicon_retina != blank and settings.favicon_counter == false -%}<link rel="apple-touch-icon-precomposed" type="image/png" sizes="152x152" href="{{ settings.favicon_retina | img_url: '152x' }}">{%- endif -%}
+
+  	<title>{{ seo_title }}</title>
+  {% include "win_ads" %}
+
+  {% include 'hic-personalize' %}
+  {% include 'hic-tag' %}
+
+
+
+
+  	{%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+  	{%- include 'social-meta-tags' -%}
+  {%- endcapture -%}
+  {{metaTags | strip_newlines | remove: "  " | remove: "	" }}
+
+  <!-- css -->
+  {%- include 'head-css' -%}
+
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+
+  {%- if template contains 'cart' -%}
+  {{ 'cart.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+
+  {%- capture mainjs -%}
+
+  <script>
+		var theme = {
+			strings:{
+				addToCart:{{ 'products.product.add_to_cart' | t | json }},soldOut:{{ 'products.product.sold_out' | t | json }},unavailable:{{ 'products.product.unavailable' | t | json }},showMore:{{ 'general.filters.show_more' | t | json }},showLess:{{ 'general.filters.show_less' | t | json }}
+			},
+			mlcurrency:{%- if settings.show_multiple_currencies and settings.currency_opt == 'script' -%}true{%- else -%}false{% endif %},moneyFormat:{{ shop.money_format | json }},currencyFormat:{{ settings.currency_format | json }},shopCurrency:{{ shop.currency | json }},autoCurrencies:{{ settings.auto_currencies }},money_currency_format:{{ shop.money_with_currency_format | strip_html | json }},money_format:{{ shop.money_format | strip_html | json }},
+			ajax_cart:{{settings.ajax_cart }},fixedHeader:{{settings.show_sticky_header }},animation:{{settings.enable_site_animation }},animationMobile:{{settings.site_animation_mobile }},searchresult:{{ 'general.search.all' | t | json }},wlAvailable:{{ 'products.wishlist.available' | t | json }},rtl:{{ settings.rtl }},days:{{ 'date_formats.short_names.days' | t | json }},hours:{{ 'date_formats.short_names.hours' | t | json }},minuts:{{ 'date_formats.short_names.minuts' | t | json }},seconds:{{ 'date_formats.short_names.seconds' | t | json }},
+			{%- if content_for_layout contains 'product-template' -%}sun:{{ 'date_formats.day_names.sunday' | t | json }},mon:{{ 'date_formats.day_names.monday' | t | json }},tue:{{ 'date_formats.day_names.tuesday' | t | json }},wed:{{ 'date_formats.day_names.wednesday' | t | json }},thu:{{ 'date_formats.day_names.thursday' | t | json }},fri:{{ 'date_formats.day_names.friday' | t | json }},sat:{{ 'date_formats.day_names.saturday' | t | json }},jan:{{ 'date_formats.months.jan' | t | json }},feb:{{ 'date_formats.months.feb' | t | json }},mar:{{ 'date_formats.months.mar' | t | json }},apr:{{ 'date_formats.months.apr' | t | json }},may:{{ 'date_formats.months.may' | t | json }},jun:{{ 'date_formats.months.jun' | t | json }},jul:{{ 'date_formats.months.jul' | t | json }},aug:{{ 'date_formats.months.aug' | t | json }},sep:{{ 'date_formats.months.sep' | t | json }},oct:{{ 'date_formats.months.oct' | t | json }},nov:{{ 'date_formats.months.nov' | t | json }},dec:{{ 'date_formats.months.dec' | t | json }},{%- endif -%}
+		};
+		document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+		var Metatheme = {{shop.metafields.mytheme.Avone |json}},thm = 'Avone', shpeml = '{{shop.email}}', dmn = window.location.hostname;
+	</script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="{{ 'jquery.min.js' | asset_url }}"></script>
+	<script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+	{%- if content_for_layout contains 'data-stellar-background-ratio' -%}<script src="{{ 'stellar.js' | asset_url }}" defer></script>{%- endif -%}
+	<script src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
+  {%- endcapture -%}
+  {{mainjs | strip_newlines | remove: "	" }}
+
+  <!-- starapps_scripts_start -->
+<!-- This code is automatically managed by StarApps Studio -->
+<!-- Please contact support@starapps.studio for any help -->
+{% render "starapps-product-json", product: product, starapps_app: "VIA", starapps_attribute: "sa-product-json" %}
+{% include "starapps-language-meta" %}
+<script type="text/javascript" src="https://bcdn.starapps.studio/apps/via/highstreet-mx/script-1606077889.js?shop={{shop.permanent_domain}}" async></script>
+<!-- starapps_scripts_end -->
+{% include 'buddha-megamenu' %}
+  {{ content_for_header }}{% if settings.show_language %}
+	{% include 'weglot_hreftags' %}
+	{% include 'weglot_switcher' %}
+  {% endif %}
+
+{% include 'pagefly-header' %}
+
+  {% render 'shogun-head' %}
+
+
+
+   
+
+
+{% include 'kart_discount' %}<script src="//staticxx.s3.amazonaws.com/aio_stats_lib_v1.min.js?v=1.0"></script>
+	{{ shop.metafields.loox["global_html_head"] }}
+
+<script>
+window.mlvedaShopCurrency = "{{ shop.currency }}";
+window.shopCurrency = "{{ shop.currency }}";
+window.supported_currencies = "{{ settings.mlvedaACS_supportedCurrencies }}";
+</script>{% include 'mlveda-currencies-switcher' %}{% include 'mlveda-currencies' %}{% include 'mlveda-flag' %}{% include 'mlveda-currencies-style' %}  
+<!-- GSSTART Show variants. Do not change -->
+{% if request.path contains "/products/" %}{% else %}{% endif %}
+<!-- Show variants code end. Do not change GSEND -->
+
+  <meta name="tapcart-banner:appIcon"
+    content="https://storage.googleapis.com/tapcart-150607.appspot.com/00eb2ae780a9c2f303329264539be5f5_AppIcon1jpg.jpeg">
+  <!-- CreativeR Store Pickup -->
+{% include "creativer-store-pickup_settings" %}
+<!-- CreativeR Store Pickup-->
+
+
+
+  <!-- dev Store Pickup-->
+
+{{ 'devitweb.css' | asset_url | stylesheet_tag }}
+{{ 'devitweb.js' | asset_url | script_tag }}
+{{ 'gfields.js' | asset_url | script_tag }}
+
+
+
+
+
+<!-- BeginConsistentCartAddon -->  <script>  {% if customer %}  Shopify.customer_logged_in = true ;  Shopify.customer_email = "{{ customer.email }}" ;  Shopify.log_uuids = true;  {% else %}  Shopify.customer_logged_in = false ;  Shopify.customer_email = "" ;  Shopify.log_uuids = true;  {% endif %}  </script>  <!-- EndConsistentCartAddon -->
+
+    {% include 'sunova_curr' %}
+   {% include 'bucks-cc' %}<!--  Inclume Emarsys script -->
+<script type="text/javascript">
+var ScarabQueue = ScarabQueue || [];
+(function(id) {
+  if (document.getElementById(id)) return;
+  var js = document.createElement('script'); js.id = id;
+  js.src = '//cdn.scarabresearch.com/js/186B9A4CF8B4941A/scarab-v2.js';
+  var fs = document.getElementsByTagName('script')[0];
+  fs.parentNode.insertBefore(js, fs);
+})('scarab-js-api');
+</script>
+
+  {% render 'qikify-apps' %}
+</head>
+  
+  
+<body id="{{ page_title | handle }}" template="{{ template }}" class="template-{{ template | split: '.' | first }} {%- if settings.rtl -%}rtl {%- endif -%}lazyload"
+	{%- if settings.bodybg_img %} data-bgset="{% include 'bgset', image: settings.bodybg_img %}" data-sizes="auto" data-parent-fit="cover" style="background-image:url('{{ settings.bodybg_img | img_url: '50x50' }});"{%- endif -%}>
+	{%- if settings.enable_age_varification -%}{% include 'age-check' %}{%- endif -%}
+   {%- if settings.layout_style == "boxedlayout" -%}<div class="page-wrapper layout-boxed">{%- endif -%}
+  		{%- include 'header' -%}
+  <!-- if settings.top-information-bar -->
+		<main id="PageContainer" class="main-content {{ template | split: '.' | first }}" id="MainContent" role="main">{{ content_for_layout }}
+<limespot></limespot></main>
+      <!-- {%- section 'footer' -%} -->
+    	{%- section 'pie_de_pagina' -%}
+  	{% if settings.layout_style == "boxedlayout" %}</div>{% endif %}
+{% section 'custom-colors' %}
+
+  
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2MGN33"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  
+<!-- js -->
+{%- if template.directory == 'customers' -%}<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>{%- endif -%}
+{%- if content_for_layout contains 'grid-masonary' -%}<script src="{{ 'masonry.js' | asset_url }}" defer="defer"></script>{%- endif -%}
+{%- capture footerSEc -%}{%- section 'footer' -%}{%- endcapture -%}
+{%- if content_for_layout contains 'instafeed' or footerSEc contains 'instafeed' -%}<script src="{{ 'instagramFeed.js' | asset_url }}" defer="defer"></script>{%- endif -%}
+{%- if settings.show_multiple_currencies and settings.currency_opt == 'script' -%}{%- include 'currencies' -%}{%- endif -%}
+{%- if settings.enable_site_animation -%}<script src="{{ 'wow.min.js' | asset_url }}" defer></script>{%- endif -%}
+<script src="{{ 'theme.min.js' | asset_url }}" defer="defer"></script>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+{%- include 'theme-modals' -%}
+{%- if settings.show_sticky_arrow -%}<span id="site-scroll"><i class="ad ad-arw-up" aria-hidden="true"></i></span>{%- endif -%}
+
+{% render 'quantity-breaks-now', customer: customer, template: template, product: product, cart: cart %}
+
+{% include 'mw_CMB_objects' %}
+<!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_fsb_main', product: product, customer: customer %}
+    <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+<input type="hidden" name="aaamembership_customer_logged_id" value="{{customer.id}}" id="aaamembership_customer_logged_id">
+	{{ shop.metafields.loox["global_html_body"] }}
+<!-- GSSTART Show variants BODY. Do not change -->{% if collection.products %}
+<div style="display: none !important;">
+  {% paginate collection.products by 50 %}{% for product in collection.products %}{% assign imagescount = product.images | size %}{% if imagescount > 1 %}
+  <div style="display: none !important;" class="gsProductVariants" gsProductHandler="{{ product.handle }}" >{% assign variantImgsUsedStr = "" %} {% assign variantBySizeUsedStr = "" %}{% assign sizeoptionnr = 0 %}
+{% for option in product.options %}{% capture optioncaseins %}{{option | downcase}}{% endcapture %}{% if optioncaseins contains "size" or optioncaseins contains "rösse" or optioncaseins contains "المقاس" or optioncaseins contains "eden" or optioncaseins contains "größe" or optioncaseins contains "torlek" or optioncaseins contains "aille" or optioncaseins contains "alla" or optioncaseins contains "amaño" or optioncaseins contains "גודל" or optioncaseins contains "サイズ" or optioncaseins contains "taille" or optioncaseins contains "eggiseno" or optioncaseins contains "aat" or optioncaseins contains "tamanho" or optioncaseins contains "rrelse" or optioncaseins contains "siza" %}{% assign sizeoptionnr = forloop.index %}{% if product.options.size == 1 %}{% endif %}{% if optioncaseins contains "color" or optioncaseins contains "colour" or optioncaseins contains "farge"  %}{% assign sizeoptionnr = 0 %}{% endif %}{% endif %}{% endfor %}
+    {% for variant in product.variants %}{% assign featuredImageSize = variant.featured_image | size %}{% if featuredImageSize > 0  %}{% if variantImgsUsedStr contains "IGNOREGS" %}{% else %}{% assign variantImgsUsedStr = variantImgsUsedStr | append: variant.featured_image %}{% assign canAddVariant = true %}{% if sizeoptionnr == 1 %}{% assign optionCheckVal = ";" | append: variant.option2 | append: variant.option3 | append: ";" %}{% if variantBySizeUsedStr contains optionCheckVal %}{% assign canAddVariant = false %}{% else %}{% assign variantBySizeUsedStr = variantBySizeUsedStr | append: ";" | append: variant.option2 | append: variant.option3 | append: ";" %}{% endif %}{% endif %}
+    {% if sizeoptionnr == 2 %}{% assign optionCheckVal = ";" | append: variant.option1 | append: variant.option3 | append: ";" %}{% if variantBySizeUsedStr contains optionCheckVal %}
+                {% assign canAddVariant = false %}{% else %}{% assign variantBySizeUsedStr = variantBySizeUsedStr | append: ";" | append: variant.option1 | append: variant.option3 | append: ";" %}{% endif %}{% endif %} {% if sizeoptionnr == 3 %}{% assign optionCheckVal = ";" | append: variant.option1 | append: variant.option2 | append: ";" %}{% if variantBySizeUsedStr contains optionCheckVal %}
+                {% assign canAddVariant = false %}{% else %}{% assign variantBySizeUsedStr = variantBySizeUsedStr | append: ";" | append: variant.option1 | append: variant.option2 | append: ";" %}{% endif %}{% endif %} {% if canAddVariant == true %}
+    <p vavailable="{{ variant.available }}" variantpriceid="{{ variant.id }}" originalprice='{{ product.price | money_without_trailing_zeros }}' minprice='{{ product.price_min | money_without_trailing_zeros }}' comparePrice='{{ variant.compare_at_price | money_without_trailing_zeros }}' variantPrice='{{ variant.price | money_without_trailing_zeros }}'></p>
+    <p varianttitleid="{{ variant.id }}" sizeoptionnr="{{ sizeoptionnr }}" optionuidtwo="{{ product.id }}{{ variant.option2 | escape }}" optiontwo="{{ variant.option2 | escape }}" originaltitle="{{ product.title | escape }}" variantTitle="{{ variant.title | escape }}" optionuid="{{ product.id }}{{ variant.option1 | escape }}"></p>
+       <span variantid="{{ variant.id }}" gsvariantimage="{{ variant.featured_image | img_url: '256x' }}"></span>
+    {% endif %}{% endif %}{% endif %}{% endfor %}
+  </div>{% endif %}{% endfor %}{% endpaginate %}{% endif %}
+  {% if collection.products %}
+        <div style="display: none !important;" class="gsProductImages" >
+        {% paginate collection.products by 50 %}{% for product in collection.products %} {% assign imagescount = product.images | size %}{% if imagescount > 1 %}{% for image in product.images  limit:1 %}
+                                        <span gsProductHandle="{{ product.handle }}" firstImage="{{ image | img_url: '256x' }}"></span>
+                                {% endfor %}{% endif %}{% endfor %}{% endpaginate %}
+  </div>
+  </div>
+    {% endif %} <!-- Show variants code end BODY. Do not change GSEND -->
+<!-- **BEGIN** Hextom CTB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_ctb_main', product: product, customer: customer %}
+    <!-- **END** Hextom CTB Integration // Main Include - DO NOT MODIFY -->
+<!-- CRITEO START -->
+{% include 'criteo-tracking' %}
+<!-- CRITEO END -->
+
+
+<!-- Initialise Cart.js once the page has loaded -->
+
+{% render 'spurit_sct_theme_snippet' %}
+{% include 'adroll' %}
+{% if customer %} <div id="shopmsg-customer-helper" data-id="{{ customer.id }}" style="display:none;"></div>{% endif %}
+{% include 'swymSnippet' %}
+
+{% render 'globo.preorder.script' %}
+<!-- Back in Stock helper snippet -->
+{% render 'back-in-stock-helper' %}
+<!-- End Back in Stock helper snippet -->
+
+  <!-- quadpay.js Library -->
+<script src="https://cdn.quadpay.com/v1/quadpay.js"></script>
+<!-- emarys set customerid -->
+
+  <script type="text/javascript">
+    var carItems = []
+    jQuery("body").on("click", ".product-form__cart-submit", function() {
+		console.log( "adding prod 2 ..." );
+  	});
+    const open = window.XMLHttpRequest.prototype.open;
+
+    function listenToCartUpdates() {
+      this.addEventListener("load", function () {
+        if (
+          [
+            "/cart/add.js",
+            // "/cart/update.js",
+            // "/cart/clear.js",
+          ].includes(this._url)
+        ) {
+          let newItem = JSON.parse(this.response);
+          carItems.push({item: newItem.variant_id , price: newItem.final_line_price/100, quantity: newItem.quantity });
+          sendScarabQueue(false, false);
+        }
+            
+        if (["/cart/change.js"].includes(this._url)) {
+          let updatedCart = JSON.parse(this.response);
+            printJsonResponse(this.response, this._url);
+          carItems = updatedCart.items.map((lineItem) => ({item: lineItem.variant_id , price: lineItem.final_line_price/100, quantity: lineItem.quantity }));
+          sendScarabQueue(false, false);
+        }
+      });
+      return open.apply(this, arguments);
+    }
+
+    window.XMLHttpRequest.prototype.open = listenToCartUpdates;
+
+    function printJsonResponse(json, route) {
+      console.log("json from route: ", route);
+      console.log(JSON.parse(json));
+    }
+    
+    function sendScarabQueue(cart = false, sendView = true) {
+      {% if customer %}
+      	ScarabQueue.push(['setCustomerId', '{{ customer.id }}']);
+      {% endif %}
+      {% if cart.item_count %}
+      if (cart) {
+      	{% for item in cart.items %}
+              carItems.push({item: {{ item.variant_id }}, price: {{ item.final_line_price | money_without_currency }}, quantity: {{ item.quantity }}});
+              //console.log("tengo en mi carro", {item: {{ item.variant_id }}, price: {{ item.final_line_price | money_without_currency }}, quantity: {{ item.quantity }}});
+        {% endfor %}
+      }
+      console.log("cart: ", carItems);
+          ScarabQueue.push(['cart', carItems]);
+      {% else %}
+          ScarabQueue.push(['cart', []]);
+      {% endif %}
+      
+      
+      if (sendView) {
+		 {% if collection %}
+      	 	ScarabQueue.push(['category', "{{ collection.handle }}"]);
+      	 {% endif %}
+         {% if product %}
+            console.log("The product variant", "{{product.selected_or_first_available_variant.id}}");
+            {% if product.selected_or_first_available_variant.id %}
+                const variantIDViewed = '{{ product.selected_or_first_available_variant.id }}';
+                console.log("viendo ", variantIDViewed);
+                ScarabQueue.push(['view', variantIDViewed]);
+            {% else %}
+                ScarabQueue.push(['view', 'g/' + '{{ product.id }}']);
+            {% endif %}
+        {% endif %}                   
+      }
+
+      // This command is required for all JS API funcions. It closes and fires the ScarabQueue. Should be the last call on the page, called only once.
+      ScarabQueue.push(['go']);
+    }
+
+    sendScarabQueue(true, true);
+  </script>
+  <!--awin-->
+  <script type="text/javascript">
+var iCookieLength = 30; // Cookie length in days
+var sCookieName = "source"; // Name of first-party cookie to use for last click referrer
+var sSourceParameterName = "source"; // Used by networks to tell you who drove the traffic
+var domain = "highstreet.com.mx"; // top level domain
+var _getQueryStringValue = function (sParameterName) {
+var aQueryStringPairs = document.location.search.substring(1).split("&");
+for (var i = 0; i < aQueryStringPairs.length; i++) {
+var aQueryStringParts = aQueryStringPairs[i].split("=");
+if (sParameterName.toLowerCase() == aQueryStringParts[0].toLowerCase()) {
+return aQueryStringParts[1];
+}
+}
+};
+var _setCookie = function (sCookieName, sCookieContents, iCookieLength, tlDomain) {
+var dCookieExpires = new Date();
+dCookieExpires.setTime(dCookieExpires.getTime() + (iCookieLength * 24 * 60 * 60 * 1000));
+document.cookie = sCookieName + "=" + sCookieContents + "; expires=" +
+dCookieExpires.toGMTString() +";domain=" + tlDomain + "; path=/;";
+};
+var _getCookie = function (sCookieName) {
+sCookieName += "=";
+var aCookies = document.cookie.split(";");
+for (var i = 0; i < aCookies.length; i++) {
+while (aCookies[i].charAt(0) == " ") aCookies[i] = aCookies[i].substring(1);
+if (aCookies[i].indexOf(sCookieName) != -1) {
+return aCookies[i].substring(sCookieName.length, aCookies[i].length);
+}
+}
+};
+if (_getQueryStringValue("awc")) {
+_setCookie(sCookieName, "aw", iCookieLength, domain);
+} else if (_getQueryStringValue('gclid')) {
+_setCookie(sCookieName, 'google', iCookieLength, domain);
+} else if (_getQueryStringValue('msclkid')) {
+_setCookie(sCookieName, 'bing', iCookieLength, domain);
+} else if (_getQueryStringValue('utm_source')) {
+_setCookie(sCookieName, _getQueryStringValue('utm_source'), iCookieLength, domain);
+}
+</script>
+<script src="https://www.dwin1.com/29483.js" type="text/javascript" defer="defer"></script>
+  <!--finawin-->
+  
+  <!-- TikTok Pixel Events managers -->
+  <script>
+		ttq.track('ViewContent')
+	</script>
+  <!-- End TikTok Pixel Events managers -->
+  
+	</body>
+</html>    <!-- StartDeliveryDateRange version: 2.0 -->
+    <script>
+      var DeliveryDateRangeData = (function() {
+        var data = {
+          product: null,
+          settings: {{ shop.metafields.delivery_date_range.user_setting | json }},
+          cartProducts: []
+        };
+
+        {% if product %}
+          {% assign collection_titles = product.collections | map: 'title' | downcase %}
+          var variants = [];
+          {% for var in product.variants %}
+            var variant = {}
+            variant['id'] = {{ var.id }};
+            variant['inventory_quantity'] = {{ var.inventory_quantity }};
+            variant['sku'] = "{{ var.sku }}";
+            variants.push(variant);
+          {% endfor %}
+          data.product = (function() {
+            return {
+              tags: {{ product.tags | json }},
+              collections: {{ collection_titles }},
+              vendor: "{{ product.vendor | downcase }}",
+              type: "{{ product.type | downcase }}",
+              available: {{ product.available }},
+              inventory_quantity: "{{ product.selected_or_first_available_variant.inventory_quantity }}",
+              variants: variants,
+              sku: "{{ product.selected_or_first_available_variant.sku }}"
+            }
+          })();
+        {% endif %}
+        {% if cart.items.size > 0 %}
+          {% for item in cart.items %}
+            {% assign collection_titles = item.product.collections | map: 'title' | downcase %}
+            data.cartProducts.push(function() {
+              return {
+                variant_id: "{{ item.variant_id }}",
+                inventory_quantity: "{{ item.variant.inventory_quantity }}",
+                tags: {{ item.product.tags | json }},
+                sku: "{{ item.variant.sku | downcase }}",
+                collections: {{ collection_titles }},
+                vendor: "{{ item.product.vendor | downcase }}",
+                type: "{{ item.product.type | downcase }}"
+              }
+            }());
+          {% endfor %}
+        {% endif %}
+
+        return data;
+      })();
+
+    </script>
+
+	
+    <!-- EndDeliveryDateRange -->
+

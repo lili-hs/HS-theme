@@ -1,0 +1,18 @@
+<script id="kpay-advertising-script" src="https://cdn.kueskipay.com/widgets.js?authorization=9d902f24-7945-4d74-be42-64ceaf3a4548&sandbox=false&integration={{ shop.name }}&version=v1.0"></script>
+
+<script>
+        new KueskipayAdvertising().init()
+</script>
+<kueskipay-widget  
+     data-kpay-widget-amount="{{ product.price }}"
+     data-kpay-widget-type="product"
+     data-kpay-widget-product-name="{{ product.title }}"
+     
+                  
+    data-kpay-widget-font-size="10"
+    data-kpay-widget-link-color = "black"  
+    data-kpay-widget-installments-color = "black"
+    data-kpay-widget-logo-color = "black"
+     >
+
+</kueskipay-widget>

@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="https://estafetadelivery.vexecommerce.com/css/app.css">
+<div id="vexsoluciones_estafeta_card" class="row" style="margin-top:25px;">
+    <div class="vexsoluciones_customCard_Snippet card col-sm-8">
+
+        <div id="vexsoluciones_card_title" class="col">
+            <h2 class="vexsoluciones_snippet_title">Estafeta Shipping Delivery 
+                <img src="https://estafetadelivery.vexecommerce.com/img/estafeta-logo.png" class="img-fluid" width="100px">
+            </h2>
+        </div>
+        <p  id="vexsoluciones_cart_time" class="vexsoluciones_cart_time text-left pl-4 text-success"><i>El pedido está disponible inmediatamente para la entrega.</i></p>
+        <p  id="vexsoluciones_cart_available" class="vexsoluciones_cart_available text-left pl-4">Uno o más de los artículos en su carrito están disponibles para el servicio de entrega por Estafeta.</p>
+        
+    </div>
+</div>
+
+
+
+<script src="https://estafetadelivery.vexecommerce.com/js/app.js"></script>
+<script src="https://estafetadelivery.vexecommerce.com/js/snippet.js"></script>
+<script>    
+$(document).ready(function () {
+    /*
+    $.ajax({
+			url: "https://estafetadelivery.vexecommerce.com/api/getShippingSchedule",
+			method: 'POST',
+			headers: { 'X-CSRF-TOKEN': 'lBm1ulpv1sSsVAtwh2mF54oYY24ERfcQptwRsIy6' },
+			data: {
+                //send params
+			},
+            success: function (data, textStatus, jqXHR) { console.log(data);
+
+                //get days
+
+                
+                //get schedule
+				$('#hour').empty();		
+				if (!$.isEmptyObject(data)) {					
+					$.each(data, function (key, obj) {   
+						if (key == 55555555) {						
+							$('#hour').append($("<option selected='selected'></option>").attr("value", obj.key).text(obj.desc));
+						} else {						
+							$('#hour').append($("<option></option>").attr("value", obj.key).text(obj.desc));	
+						}	 		
+					});
+				} else {
+					$('#hour').append($("<option></option>").attr("value", "").text("Select")); 
+				}
+			}
+        });	
+    */
+});
+</script>

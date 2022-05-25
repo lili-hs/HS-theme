@@ -1,0 +1,123 @@
+<div countdown class="barra_superior" cd_start="{{ section.settings.countdown_start }}" cd_end="{{ section.settings.countdown_end }}" cd_message="{{ section.settings.countdown_message }}">
+  {% if section.settings.barra_superior_desk != blank and section.settings.barra_superior_mob_1 != blank %}
+  <div class="mensaje_top_bar" style="background-color:{{section.settings.color_top_bar}}">
+    <p class="texto_mensaje" style="font-size:{{section.settings.size_top_cabecera}}px">{{ section.settings.barra_superior_desk }}
+      {%- if section.settings.countdown_start != 'falso' and section.settings.countdown_end != 'falso' -%}
+        <span countdown_message_full="{{ section.settings.countdown_message_full }}" class="barra_countdown_gf {% if section.settings.countdown_message_full == true %} countdown_message_full {% endif %}"></span>
+      {%- endif -%}
+    </p>
+    <p class="texto_mensaje_mobile">{{ section.settings.barra_superior_mob_1 }}</p>
+    <p class="texto_mensaje_mobile">{{ section.settings.barra_superior_mob_2 }}</p>
+    <p class="texto_mensaje_horas_mobile">{{ section.settings.barra_superior_mob_3 }} <span class="barra_countdown_gf {% if section.settings.countdown_message_full == true %} countdown_message_full {% endif %}"></span></p>
+  </div>
+  {% endif %}
+  {% if section.settings.barra_inferior_desk_1 != blank and section.settings.barra_inferior_mob != blank %}
+  <div class="grid-container">
+    <div class="msj_tb" style="background-color:{{section.settings.color_top_desk1}}">{{section.settings.barra_inferior_desk_1 | truncate: 60}}</div>
+    <div class="msj_tb" style="background-color:{{section.settings.color_top_desk2}}">{{section.settings.barra_inferior_desk_2 | truncate: 60}}</div>
+    <div class="msj_tb_mobile">{{section.settings.barra_inferior_mob}}</div>
+  </div>
+  {% endif %}
+ </div>
+
+{% schema %}
+{
+  "name": "Barra UP-Gallery",
+  "settings": [
+    {
+      "type": "header",
+      "content": "-- Textos cabecera --"
+    },
+    {
+      "type": "textarea",
+      "id": "barra_superior_desk",
+      "label": "Barra superior - DESK"
+    },
+	{
+      "type": "color",
+      "id": "color_top_bar",
+      "label": "Color banner",
+      "default": "#FEB2D0"
+    },
+	{
+	  "type": "range",
+	  "id": "size_top_cabecera",
+	  "label": "Tamaño de texto",
+	  "min": 20,
+      "max": 40,
+      "step": 2,
+      "default": 36
+	},
+    {
+      "type": "textarea",
+      "id": "barra_superior_mob_1",
+      "label": "Barra superior - MOBILE 1"
+    },
+    {
+      "type": "textarea",
+      "id": "barra_superior_mob_2",
+      "label": "Barra superior - MOBILE 2"
+    },
+    {
+      "type": "textarea",
+      "id": "barra_superior_mob_3",
+      "label": "Barra superior - MOBILE 3"
+    },
+    {
+      "type": "textarea",
+      "id": "barra_inferior_desk_1",
+      "label": "Barra inferior - DESK 1"
+    },
+	{
+	  "type": "color",
+	  "id": "color_top_desk1",
+	  "label": "Color banner izquierda",
+	  "default": "#000000"
+	},
+    {
+      "type": "textarea",
+      "id": "barra_inferior_desk_2",
+      "label": "Barra inferior - DESK 2"
+    },
+	{
+	  "type": "color",
+	  "id": "color_top_desk2",
+	  "label": "Color banner derecha",
+	  "default": "#000000"
+	},
+    {
+      "type": "textarea",
+      "id": "barra_inferior_mob",
+      "label": "Barra inferior - MOBILE"
+    },
+    {
+      "type": "text",
+      "id": "countdown_start",
+      "label": "Fecha exacta de inicio para promoción",
+      "info": "Colocar en formato YYYY-MM-DD HH:II Ejemplo: \"2020-10-12 00:45\"",
+      "default": "falso"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end",
+      "label": "Fecha exacta de finalización para promoción",
+      "info": "Colocar en formato YYYY-MM-DD HH:II Ejemplo: \"2020-10-12 00:45\"",
+      "default": "falso"
+    },
+    {
+      "type": "text",
+      "id": "countdown_message",
+      "label": "Mensaje previo a Reloj",
+      "info": "Ej: \"FINALIZA EN:\" ",
+      "default": "FINALIZA EN:"
+    },
+    {
+      "type": "checkbox",
+      "id": "countdown_message_full",
+      "label": "Reloj de un renglon",
+      "info": "Hacer Mensaje un solo renglon en desktop",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

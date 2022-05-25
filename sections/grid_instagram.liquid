@@ -1,0 +1,30 @@
+<div class="container_instagram">
+    {% assign title_sub = section.settings.title %}
+    {% assign subtitle_sub = section.settings.subtitle %}
+    <div class="container_text_instagram">
+        <h1 class="title_insta">{{ title_sub}}</h1>
+        <p class="parrafo_insta">{{ subtitle_sub }}</p>
+    </div>
+    <script src="//foursixty.com/media/scripts/fs.embed.v2.5.js" data-feed-id="high-street" data-theme="showcase_v2_5" data-open-links-in-same-page="true" data-page-size="8"></script>
+</div>
+{% schema %}
+  {
+    "name": "Grid Intagram",
+    "class": "index-section imgBanners",
+    "settings": [	
+     {
+        "type": "textarea",
+        "id": "title",
+        "label": "Heading",
+        "default": "Heading",
+		"info":"Use <strong>text here</strong> to make headings bold"
+      },
+     {
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "description",
+        "default": "description"
+      }
+    ]
+  }
+{% endschema %}

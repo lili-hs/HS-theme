@@ -1,0 +1,50 @@
+{% if block.settings.collection_image != blank %}
+  {%- assign collection_image = block.settings.collection_image -%}
+  {%- assign aspectratio = block.settings.collection_image.aspect_ratio -%}
+{% elsif collection.products.first and collection.products.first.images != empty %}
+  {%- assign collection_image = collection.products.first.featured_image -%}
+  {%- assign aspectratio = collection.products.first.featured_image.aspect_ratio -%}
+{% else %}
+  {% assign collection_image = blank %}
+{% endif %}
+
+{%- assign img_url = collection_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+<div class="collection-grid-item">
+  <a href="{% if collection.empty? %}#{% else %}{{ collection.url }}{% endif %}" class="collection-grid-item__link">
+    <div class="img">
+      {% if collection.empty? %}
+      {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+      {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+      {% else %}
+      <img class="lazyload" src="{{ collection_image | img_url: '100x' }}" data-src="{{ img_url }}"
+           data-widths="[180, 300, 400, 540, 720, 900, 1200, 1500, 2000]" data-aspectratio="{{ collection_image.aspect_ratio }}" data-sizes="auto" alt="{{ collection_image.alt | escape }}" />
+      {% endif %}
+    </div>
+     <div class="details{% if section.settings.leftpadzero %} pad-0{% endif %} wd-{{ section.settings.box-width}} {{ block.settings.textalign}}">
+ 	    <div class="inner {{text_align}}">
+        {% if block.settings.collection_name2 != blank %}
+        	<p> {{ block.settings.collection_name2 }} </p>                       
+        {% endif %}   
+        {% if section.settings.product_count %}
+        	<span class="counts">{{ 'collections.general.items_with_count' | t: count: collection.all_products_count }}</span>
+        {% endif %}                                                   
+      </div>
+    </div> 
+  </a>
+</div>
+<div class="text-center">
+    <h2 class="collection-grid-item__title {{section.settings.text_size}} {{ section.settings.font_weight}} text_the_edit_collection">
+          {% assign text_edit = block.settings.text_for_edit %}
+          {% if text_edit == "" %}
+                {{ collection.title }}
+          {% else %}
+                {{ text_edit }}
+          {% endif %}
+          
+        </h2>
+        {% if section.settings.show_buttons %}
+          {% if  block.settings.collection_btn != blank %} 
+         	 <a href="{{ collection.url }}" class="btn principal hover_rosa ancho_for_btn_edit" type="button">{{block.settings.collection_btn}}</a>
+          {% endif %}
+        {% endif %}      
+</div>

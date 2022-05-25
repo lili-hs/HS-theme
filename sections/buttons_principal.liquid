@@ -1,0 +1,81 @@
+{% assign url_tops = section.settings.url_tops %}
+{% assign text_tops = section.settings.text_tops %}
+{% assign url_vestidos = section.settings.url_vestidos %}
+{% assign text_vestidos = section.settings.text_vestidos %}
+{% assign url_denim = section.settings.url_denim %}
+{% assign text_denim = section.settings.text_denim %}
+{% assign url_loungewear = section.settings.url_loungewear %}
+{% assign text_loungewear = section.settings.text_loungewear %}
+{% assign url_sale = section.settings.url_sale %}
+{% assign text_sale = section.settings.text_sale %}
+<div class="contenedor_botones">
+    <a href="{{ url_tops }}" class="btn scond_nav">{{ text_tops }}</a>
+    <a href="{{ url_vestidos }}" class="btn scond_nav">{{ text_vestidos }}</a>
+    <a href="{{ url_denim }}" class="btn scond_nav">{{ text_denim }}</a>
+    <a href="{{ url_loungewear }}" class="btn scond_nav">{{ text_loungewear }}</a>
+    <a href="{{ url_sale }}" class="btn scond_nav">{{ text_sale }}</a>
+</div>
+
+{% schema %}
+    {
+        "name": "Buttons section",
+        "class": "devitweb_p4",
+        "settings": [
+            {
+                "type":"url",
+                "id":"url_tops",
+                "label":"Url First Button"
+            },
+            {
+                "type":"text",
+                "id":"text_tops",
+                "label":"Text first Button",
+                "default":"TOPS"
+            },
+            {
+                "type":"url",
+                "id":"url_vestidos",
+                "label":"Url Second Button"
+            },
+            {
+                "type":"text",
+                "id":"text_vestidos",
+                "label":"Text Second Button",
+                "default":"VESTIDOS"
+            },
+            {
+                "type":"url",
+                "id":"url_denim",
+                "label":"Url Third Button"
+            },
+            {
+                "type":"text",
+                "id":"text_denim",
+                "label":"Text Third Button",
+                "default":"DENIM"
+            },
+            {
+                "type":"url",
+                "id":"url_loungewear",
+                "label":"Url Quarter Button"
+            },
+            {
+                "type":"text",
+                "id":"text_loungewear",
+                "label":"Text Quarter Button",
+                "default":"LOUNGEWEAR"
+            },
+            {
+                "type":"url",
+                "id":"url_sale",
+                "label":"Url Fifth Button"
+            },
+            {
+                "type":"text",
+                "id":"text_sale",
+                "label":"Text Fifth Button",
+                "default":"SALE"
+            }
+        ]
+    }
+{% endschema %}
