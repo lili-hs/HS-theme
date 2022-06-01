@@ -1,0 +1,117 @@
+{% assign count = 0 %}
+
+{% for block in section.blocks %}
+  
+{% case block.type %}
+    
+{% when 'announcement' %}
+
+<div class="barra-promocional-header-{{count}}">
+  
+  {% if template.name == 'index' or section.settings.show-on-homepage == false %}
+  <a href="{{section.settings.link}}"class="barra-promocional-header__link">
+    <p class="barra-promocional-header__mensaje">{{block.settings.texto_barra}}</p>
+  </a>
+  {% endif %}
+</div>
+
+
+<style>
+  .barra-promocional-header-{{count}}{
+  text-align: center;
+  }
+  .barra-promocional-header-{{count}} .barra-promocional-header__mensaje{
+    {% if block.settings.bold-text %}
+    font-weight: bold;
+    {% endif %}
+    
+    font-size: {{block.settings.font_size}}px;
+    padding: {{block.settings.altura}}px;
+    color: {{block.settings.color}};
+    background-color: {{block.settings.background_color}};
+    margin: 0;
+ }
+</style>
+
+{% assign count = count | plus:1 %}
+
+  
+{% endcase %}
+{% endfor %}
+
+
+{% schema %}
+ {
+  "name": "Barra promocional",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texto_barra",
+          "default": "Este es un texto preeliminar",
+          "label": "Texto Promocional"
+        },
+        {
+          "type": "checkbox",
+          "id": "show-on-homepage",
+          "default": false,
+          "label": "Mostrar sólo en inicio"
+        },
+        {
+          "type": "checkbox",
+          "id": "bold-text",
+          "default": false,
+          "label": "Texto en negritas"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño de letra",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "altura",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamaño del banner",
+          "default": 6
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Color texto",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Color banner",
+          "default": "#000000"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
